@@ -1,0 +1,285 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #0a0f1e;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  color: var(--foreground);
+  background: var(--background);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── GRADIENT TEXT ─────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #ff6b00 0%, #e63950 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-blue {
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── GLASS ─────────────────────────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-dark {
+  background: rgba(10, 15, 30, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ─── GLOW BUTTONS ──────────────────────────────────────────── */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ff6b00, #e63950);
+  color: white;
+  font-weight: 700;
+  border-radius: 1rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 24px rgba(255, 107, 0, 0.35);
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: translateX(-150%) skewX(-20deg);
+}
+.btn-primary:hover::after {
+  animation: shine-sweep 0.9s ease;
+}
+.btn-primary:hover {
+  box-shadow: 0 8px 40px rgba(255, 107, 0, 0.55);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-weight: 600;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: all 0.25s ease;
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ─── CARDS ─────────────────────────────────────────────────── */
+.card {
+  background: white;
+  border-radius: 1.5rem;
+  border: 1px solid #f1f5f9;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card:hover {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+}
+
+/* ─── SECTION ────────────────────────────────────────────────── */
+.section-heading {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+/* ─── ANIMATIONS ─────────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes ping-slow {
+  0% { transform: scale(1); opacity: 0.8; }
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(255, 107, 0, 0); }
+}
+
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 20s linear infinite; }
+.animate-gradient { 
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+.animate-ping-slow { animation: ping-slow 2.5s cubic-bezier(0, 0, 0.2, 1) infinite; }
+.animate-pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
+
+/* ─── GRADIENT BG ────────────────────────────────────────────── */
+.hero-bg {
+  background: radial-gradient(ellipse 80% 80% at 50% -10%, #1e3a8a55 0%, transparent 60%),
+              linear-gradient(160deg, #050b1a 0%, #0a1628 40%, #0d1f3c 100%);
+}
+
+.section-bg-dark {
+  background: linear-gradient(160deg, #050b1a 0%, #0a1628 100%);
+}
+
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.4); }
+  70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(255, 107, 0, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 107, 0, 0); }
+}
+
+.animate-fadeInUp { animation: fadeInUp 0.6s ease-out forwards; }
+.animate-pulse-ring { animation: pulse-ring 2s infinite; }
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.section-divider {
+  border-top: 1px solid #f0f0f0;
+}
+
+/* ─── SCROLL PROGRESS BAR ────────────────────────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  transform-origin: 0%;
+  background: linear-gradient(90deg, #ff6b00, #e63950, #6366f1);
+  z-index: 60;
+}
+
+/* ─── SHINE SWEEP (buttons / cards) ──────────────────────────── */
+@keyframes shine-sweep {
+  0% { transform: translateX(-120%) skewX(-20deg); }
+  60%, 100% { transform: translateX(220%) skewX(-20deg); }
+}
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+.shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: translateX(-120%) skewX(-20deg);
+}
+.shine:hover::after {
+  animation: shine-sweep 0.9s ease;
+}
+
+/* ─── SCROLL-DRIVEN KEYFRAME ANIMATIONS ──────────────────────── */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(60px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes reveal-left {
+  from { opacity: 0; transform: translateX(-70px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes reveal-right {
+  from { opacity: 0; transform: translateX(70px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes reveal-zoom {
+  from { opacity: 0; transform: scale(0.82); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes blur-in {
+  from { opacity: 0; filter: blur(14px); transform: translateY(28px); }
+  to   { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+
+/* Parallax drift tied to scroll position of the element in view */
+@keyframes parallax-rise {
+  from { transform: translateY(60px); }
+  to   { transform: translateY(-60px); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .scroll-reveal,
+    .scroll-reveal-left,
+    .scroll-reveal-right,
+    .scroll-zoom,
+    .scroll-blur {
+      animation-timeline: view();
+      animation-range: entry 0% cover 38%;
+      animation-fill-mode: both;
+    }
+    .scroll-reveal      { animation-name: reveal-up; }
+    .scroll-reveal-left { animation-name: reveal-left; }
+    .scroll-reveal-right{ animation-name: reveal-right; }
+    .scroll-zoom        { animation-name: reveal-zoom; }
+    .scroll-blur        { animation-name: blur-in; }
+
+    .scroll-parallax {
+      animation: parallax-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+  }
+}
+
+/* Fallback: if scroll-driven timelines unsupported, just show content */
+@supports not (animation-timeline: view()) {
+  .scroll-reveal,
+  .scroll-reveal-left,
+  .scroll-reveal-right,
+  .scroll-zoom,
+  .scroll-blur { opacity: 1; }
+}
