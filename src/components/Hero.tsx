@@ -26,7 +26,9 @@ const item = {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden hero-bg noise-overlay">
+    <section className="relative min-h-screen flex items-center overflow-hidden hero-bg noise-overlay hero-beams">
+      <div className="aurora" />
+      <div className="animated-grid" />
       <div className="absolute top-1/4 -left-40 w-[500px] h-[500px] rounded-full bg-orange-600/15 blur-[120px] pointer-events-none animate-float scroll-parallax" />
       <div className="absolute bottom-0 -right-40 w-[600px] h-[600px] rounded-full bg-blue-700/12 blur-[140px] pointer-events-none scroll-parallax" />
       <div className="absolute top-0 right-1/3 w-96 h-96 rounded-full bg-red-500/10 blur-[100px] pointer-events-none" />
@@ -51,7 +53,8 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p variants={item} className="max-w-2xl mx-auto text-lg sm:text-xl text-white/55 leading-relaxed mb-10">
-            Buy, sell, auction, book services, hire engineers, post requirements - all through a
+            <strong className="text-white/75 font-semibold">AUC Store</strong> lets you buy, sell, auction,
+            book services, hire engineers, and post requirements - all through a
             single verified <span className="text-orange-400 font-semibold">Store ID</span> that
             powers your business, portfolio, and leads.
           </motion.p>

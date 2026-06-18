@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PolicyPage from "@/components/PolicyPage";
 
 export const metadata: Metadata = {
-  title: "Refund Policy – AUC Store",
+  title: "Refund Policy",
   description: "AUC Store's refund, return, and cancellation policy for products and services.",
 };
 

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ShoppingBag, Shield, FileText, RefreshCw, UserX, ChevronRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Policies – AUC Store",
+  title: "Policies",
   description: "All legal policies for the AUC Store platform.",
 };
 

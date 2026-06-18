@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Netlify Form Detection</title>
+  </head>
+  <body>
+    <!--
+      This hidden static form exists so Netlify's build-time bot can detect
+      the "interest" form and its fields. The visible form in the React app
+      (CTA.tsx) submits to /__forms.html via AJAX. Do not delete.
+    -->
+    <form name="interest" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="interest" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="interest" />
+      <textarea name="message"></textarea>
+      <input name="bot-field" />
+    </form>
+  </body>
+</html>

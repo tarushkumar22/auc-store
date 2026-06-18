@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { AtSign, Share2, QrCode, Star, ShieldCheck } from "lucide-react";
 import Animate from "./Animate";
 
-const examples = ["@hpworlddehradun", "@xpertcommunication", "@techtarush", "@coolairsolutions"];
+const examples = ["@techtarush", "@gadgetgurulab", "@buildwithtech", "@devstudio.in", "@pixelrepairs", "@smartgear"];
 
 const features = [
   { icon: AtSign, title: "Unique Store ID", desc: "Your branded URL: aucstore.in/store/yourname" },
@@ -93,16 +93,21 @@ export default function StoreID() {
               </div>
             </motion.div>
 
-            <div className="mt-5 grid grid-cols-2 gap-3 max-w-md mx-auto">
-              {examples.map((e) => (
-                <motion.div
-                  key={e}
-                  whileHover={{ scale: 1.04 }}
-                  className="px-4 py-2.5 rounded-xl glass text-orange-400 text-sm font-medium text-center border border-orange-500/20 cursor-default"
-                >
-                  {e}
-                </motion.div>
-              ))}
+            <div className="mt-6 max-w-md mx-auto">
+              <p className="text-white/45 text-xs text-center mb-3">
+                Brands, tech creators, and influencers can claim their own Store ID
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {examples.map((e) => (
+                  <motion.div
+                    key={e}
+                    whileHover={{ scale: 1.04 }}
+                    className="px-3 py-2.5 rounded-xl glass text-orange-400 text-sm font-medium text-center border border-orange-500/20 cursor-default truncate"
+                  >
+                    {e}
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </Animate>
         </div>

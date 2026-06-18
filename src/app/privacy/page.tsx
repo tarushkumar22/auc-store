@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PolicyPage from "@/components/PolicyPage";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy – AUC Store",
+  title: "Privacy Policy",
   description: "Learn how AUC Store collects, uses, and protects your personal information.",
 };
 

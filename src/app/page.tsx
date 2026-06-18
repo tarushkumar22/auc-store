@@ -13,11 +13,27 @@ import WhyAUC from "@/components/WhyAUC";
 import Founder from "@/components/Founder";
 import Memberships from "@/components/Memberships";
 import CTA from "@/components/CTA";
+import FAQ from "@/components/FAQ";
+import { faqs } from "@/components/faqData";
 import Footer from "@/components/Footer";
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <ScrollProgress />
       <Navbar />
       <main>
@@ -33,6 +49,7 @@ export default function Home() {
         <WhyAUC />
         <Memberships />
         <CTA />
+        <FAQ />
       </main>
       <Footer />
       <MobileNav />

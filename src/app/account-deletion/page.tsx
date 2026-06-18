@@ -3,7 +3,7 @@ import PolicyPage from "@/components/PolicyPage";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Account Deletion – AUC Store",
+  title: "Account Deletion",
   description: "Learn how to delete your AUC Store account and what happens to your data.",
 };
 

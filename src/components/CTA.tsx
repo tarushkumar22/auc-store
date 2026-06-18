@@ -12,8 +12,17 @@ const interests = [
   "Investment Opportunity",
 ];
 
+const FORM_NAME = "interest";
+
+const encode = (data: Record<string, string>) =>
+  Object.keys(data)
+    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&");
+
 export default function CTA() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -28,14 +37,26 @@ export default function CTA() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`AUC Store Interest - ${form.interest}`);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nInterest: ${form.interest}\n\nMessage:\n${form.message}`
-    );
-    window.location.href = `mailto:hello@aucstore.com?subject=${subject}&body=${body}`;
-    setSubmitted(true);
+    setError("");
+    setLoading(true);
+    try {
+      const res = await fetch("/__forms.html", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({ "form-name": FORM_NAME, ...form }),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Network error. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -95,7 +116,20 @@ export default function CTA() {
                     </p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
+                  <form
+                    name={FORM_NAME}
+                    method="POST"
+                    data-netlify="true"
+                    netlify-honeypot="bot-field"
+                    onSubmit={handleSubmit}
+                    className="space-y-4"
+                  >
+                    <input type="hidden" name="form-name" value={FORM_NAME} />
+                    <p className="hidden">
+                      <label>
+                        Do not fill this out: <input name="bot-field" onChange={handleChange} />
+                      </label>
+                    </p>
                     <div className="flex items-center gap-2 mb-1">
                       <Sparkles className="w-4 h-4 text-orange-400" />
                       <h3 className="text-white font-bold">Register Your Interest</h3>
@@ -168,14 +202,25 @@ export default function CTA() {
                       />
                     </div>
 
+                    {error && (
+                      <p className="text-red-400 text-xs text-center">{error}</p>
+                    )}
+
                     <motion.button
                       type="submit"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full flex items-center justify-center gap-2 btn-primary px-6 py-3"
+                      disabled={loading}
+                      whileHover={{ scale: loading ? 1 : 1.02 }}
+                      whileTap={{ scale: loading ? 1 : 0.98 }}
+                      className="w-full flex items-center justify-center gap-2 btn-primary px-6 py-3 disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                      Submit Interest
-                      <ArrowRight className="w-5 h-5" />
+                      {loading ? (
+                        "Submitting..."
+                      ) : (
+                        <>
+                          Submit Interest
+                          <ArrowRight className="w-5 h-5" />
+                        </>
+                      )}
                     </motion.button>
                   </form>
                 )}
