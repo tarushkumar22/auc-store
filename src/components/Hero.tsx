@@ -60,7 +60,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.div variants={item} className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
-            <a href="#store-id" className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 text-lg animate-pulse-glow">
+            <a href="#store-id" className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 text-lg">
               Create Your Store ID
               <ArrowRight className="w-5 h-5" />
             </a>
