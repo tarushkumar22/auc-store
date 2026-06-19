@@ -14,6 +14,15 @@ const interests = [
 
 const FORM_NAME = "interest";
 
+const initialForm = {
+  name: "",
+  email: "",
+  phone: "",
+  interest: "Early Access",
+  message: "",
+  "bot-field": "",
+};
+
 const encode = (data: Record<string, string>) =>
   Object.keys(data)
     .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
@@ -23,13 +32,7 @@ export default function CTA() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    interest: "Early Access",
-    message: "",
-  });
+  const [form, setForm] = useState(initialForm);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -40,23 +43,59 @@ export default function CTA() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    // Honeypot: silently drop bot submissions.
+    if (form["bot-field"]) {
+      setSubmitted(true);
+      return;
+    }
+
+    const name = form.name.trim();
+    const email = form.email.trim();
+    if (!name || !email) {
+      setError("Please enter your name and email.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await fetch("/__forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode({ "form-name": FORM_NAME, ...form }),
+        body: encode({
+          "form-name": FORM_NAME,
+          ...form,
+          name,
+          email,
+          phone: form.phone.trim(),
+          message: form.message.trim(),
+        }),
       });
       if (res.ok) {
         setSubmitted(true);
+        setForm(initialForm);
+      } else if (res.status === 405 && process.env.NODE_ENV !== "production") {
+        setError(
+          "Netlify Forms can't be tested in `next dev` (405). Run `netlify dev` or test on the deployed site."
+        );
       } else {
-        setError("Something went wrong. Please try again.");
+        setError(`Submission failed (${res.status}). Please try again.`);
       }
     } catch {
       setError("Network error. Please check your connection and try again.");
     } finally {
       setLoading(false);
     }
+  };
+
+  const resetForm = () => {
+    setForm(initialForm);
+    setSubmitted(false);
+    setError("");
   };
 
   return (
@@ -106,7 +145,7 @@ export default function CTA() {
               {/* Right: Interest / investment form */}
               <div className="glass-dark rounded-2xl p-6 sm:p-7 border border-white/10">
                 {submitted ? (
-                  <div className="text-center py-10">
+                  <div className="text-center py-10" role="status" aria-live="polite">
                     <div className="w-14 h-14 rounded-2xl bg-green-500/15 border border-green-500/30 flex items-center justify-center mx-auto mb-4">
                       <CheckCircle2 className="w-7 h-7 text-green-400" />
                     </div>
@@ -114,6 +153,13 @@ export default function CTA() {
                     <p className="text-white/55 text-sm">
                       Your interest has been registered. We&apos;ll reach out as soon as AUC Store launches.
                     </p>
+                    <button
+                      type="button"
+                      onClick={resetForm}
+                      className="mt-5 text-orange-400 text-sm font-semibold hover:text-orange-300 transition-colors"
+                    >
+                      Submit another response
+                    </button>
                   </div>
                 ) : (
                   <form
@@ -127,7 +173,14 @@ export default function CTA() {
                     <input type="hidden" name="form-name" value={FORM_NAME} />
                     <p className="hidden">
                       <label>
-                        Do not fill this out: <input name="bot-field" onChange={handleChange} />
+                        Do not fill this out:{" "}
+                        <input
+                          name="bot-field"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          value={form["bot-field"]}
+                          onChange={handleChange}
+                        />
                       </label>
                     </p>
                     <div className="flex items-center gap-2 mb-1">
@@ -203,7 +256,9 @@ export default function CTA() {
                     </div>
 
                     {error && (
-                      <p className="text-red-400 text-xs text-center">{error}</p>
+                      <p className="text-red-400 text-xs text-center" role="alert" aria-live="assertive">
+                        {error}
+                      </p>
                     )}
 
                     <motion.button
