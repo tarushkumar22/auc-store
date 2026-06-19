@@ -1,7 +1,7 @@
 ﻿"use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { MapPin, Briefcase, Star, ExternalLink } from "lucide-react";
+import { MapPin, Briefcase, Star } from "lucide-react";
 import Animate from "./Animate";
 
 // Auto-calculate age from date of birth: 09 Jan 2004
@@ -16,28 +16,24 @@ const AGE = getAge(new Date(2004, 0, 9));
 
 const timeline = [
   {
-    years: "2019 - 2024",
     role: "Tech Support & System Specialist",
     org: "Xpert Communication",
     color: "bg-blue-500",
     highlights: ["99% repair success rate", "Custom PC building & chip-level repairs", "Multi-brand hardware & software", "Customer service excellence"],
   },
   {
-    years: "Mar 2025 - Jul 2025",
     role: "Backend Executive & IT Support",
     org: "QDIGI Services Ltd (Samsung Service Centre)",
     color: "bg-green-500",
     highlights: ["98% data accuracy maintained", "Samsung GSPN portal management", "Samsung service centre operations", "IT support & troubleshooting"],
   },
   {
-    years: "Nov 2025 - May 2026",
     role: "Store Manager",
     org: "HP World, Dehradun",
     color: "bg-purple-500",
     highlights: ["Sales, billing & inventory", "Customer product selection", "Team coordination & targets", "Daily operations & growth"],
   },
   {
-    years: "Present",
     role: "Founder & CEO",
     org: "AUC Smart Services Pvt Ltd",
     color: "bg-orange-500",
@@ -53,10 +49,46 @@ const stats = [
 ];
 
 const socials = [
-  { label: "Website", url: "https://tarush.icu", icon: "T" },
-  { label: "LinkedIn", url: "https://linkedin.com/in/tarush-kumar-3a6300110", icon: "in" },
-  { label: "Instagram", url: "https://www.instagram.com/tarushkumar_/", icon: "Ig" },
-  { label: "X (Twitter)", url: "https://x.com/tarushkumar_", icon: "X" },
+  {
+    label: "Portfolio",
+    url: "https://tarush.icu",
+    svg: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M2 12h20" />
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </svg>
+    ),
+  },
+  {
+    label: "LinkedIn",
+    url: "https://linkedin.com/in/tarush-kumar-3a6300110",
+    svg: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+        <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Instagram",
+    url: "https://www.instagram.com/tarushkumar_/",
+    svg: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+      </svg>
+    ),
+  },
+  {
+    label: "X (Twitter)",
+    url: "https://x.com/tarushkumar_",
+    svg: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-[18px] h-[18px]">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    ),
+  },
 ];
 
 export default function Founder() {
@@ -147,19 +179,23 @@ export default function Founder() {
             </div>
 
             {/* Social links */}
-            <div className="flex flex-wrap gap-2">
-              {socials.map(({ label, url, icon }) => (
+            <div className="flex flex-wrap gap-2.5">
+              {socials.map(({ label, url, svg }) => (
                 <motion.a
                   key={label}
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.07, y: -2 }}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl glass border border-white/12 text-white/70 text-sm font-medium hover:text-orange-400 hover:border-orange-500/30 transition-colors"
+                  aria-label={label}
+                  title={label}
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.96 }}
+                  className="flex items-center gap-2 pl-2.5 pr-3.5 py-2 rounded-2xl glass border border-white/12 text-white/70 hover:text-orange-400 hover:border-orange-500/40 hover:bg-orange-500/10 transition-colors"
                 >
-                  <span className="w-6 h-6 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-400 text-xs font-bold">{icon}</span>
-                  {label}
-                  <ExternalLink className="w-3 h-3 opacity-50" />
+                  <span className="w-8 h-8 rounded-xl bg-orange-500/15 flex items-center justify-center text-orange-400 shrink-0">
+                    {svg}
+                  </span>
+                  <span className="text-sm font-semibold">{label}</span>
                 </motion.a>
               ))}
             </div>
@@ -174,7 +210,7 @@ export default function Founder() {
             <div className="relative">
               <div className="absolute left-4 top-4 bottom-4 w-px bg-white/10" />
               <div className="space-y-5">
-                {timeline.map(({ years, role, org, color, highlights }, i) => (
+                {timeline.map(({ role, org, color, highlights }, i) => (
                   <motion.div
                     key={role}
                     initial={{ opacity: 0, x: 30 }}
@@ -186,12 +222,9 @@ export default function Founder() {
                   >
                     <div className={`absolute left-1.5 top-1.5 w-5 h-5 rounded-full ${color} border-2 border-[#050b1a] shadow-lg`} />
                     <div className="glass rounded-2xl p-4 border border-white/8 hover:border-orange-500/20 transition-colors">
-                      <div className="flex items-start justify-between gap-2 mb-1">
-                        <div>
-                          <div className="text-white font-bold text-sm">{role}</div>
-                          <div className="text-orange-400 text-xs font-medium">{org}</div>
-                        </div>
-                        <span className="text-white/35 text-xs shrink-0 mt-0.5">{years}</span>
+                      <div className="mb-1">
+                        <div className="text-white font-bold text-sm">{role}</div>
+                        <div className="text-orange-400 text-xs font-medium">{org}</div>
                       </div>
                       <div className="grid grid-cols-2 gap-1 mt-2">
                         {highlights.map((h) => (
