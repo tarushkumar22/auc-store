@@ -20,6 +20,10 @@ export const faqs = [
     a: "Customers, sellers, engineers, freelancers, influencers, and brands can all create their own Store ID. Students and buyers can shop and request quotations, while selling and business accounts require eligibility verification.",
   },
   {
+    q: "How do auctions work on AUC Store?",
+    a: "AUC Store auctions are customer-led reverse auctions. You post your requirement as a lead, and verified sellers across your city and nearby respond with their best price and the fastest delivery time they can offer. You then pick the winner the way you want - the lowest price, the highest-rated and best-reviewed store, or the quickest delivery - so sellers compete to give you the best overall deal.",
+  },
+  {
     q: "When is the AUC Store app launching?",
     a: "The AUC Store app is launching soon. You can register your interest, request early access, or explore partnership and investment opportunities directly from our homepage.",
   },

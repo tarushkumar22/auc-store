@@ -14,9 +14,9 @@ const features = [
   {
     icon: Gavel,
     color: "from-orange-500 to-red-500",
-    title: "Auction Marketplace",
-    desc: "Auction used items, new products, and business inventory. Set 3, 5, 7-day or custom durations. Highest bidder wins.",
-    tags: ["3/5/7 Day Auctions", "Custom Duration", "Highest Bid Wins"],
+    title: "Reverse Auction Marketplace",
+    desc: "Post your requirement and let verified sellers across your city and nearby compete to win it. Each seller quotes their best price and fastest delivery time - you choose the winner by lowest price, top ratings, or quickest delivery.",
+    tags: ["You Post, Sellers Compete", "Best Price or Top Rated", "Fastest Delivery"],
   },
   {
     icon: FileText,

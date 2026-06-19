@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: "%s | AUC Store",
   },
   description:
-    "AUC Store is India's unified marketplace. Buy and sell products, book services, hire engineers and freelancers, request quotations, join auctions, and grow your business with one verified Store ID.",
+    "AUC Store is India's unified marketplace. Post your requirement and let verified local sellers across your city compete on price, ratings and delivery speed through reverse auctions. Buy and sell products, book services, hire engineers and freelancers, request quotations, and grow your business with one verified Store ID.",
   applicationName: "AUC Store",
   keywords: [
     "AUC Store",
@@ -41,6 +41,11 @@ export const metadata: Metadata = {
     "hire engineers",
     "freelancer marketplace",
     "online auctions India",
+    "reverse auction marketplace",
+    "post requirement get quotes",
+    "best price from local sellers",
+    "compare seller prices online",
+    "local shops online marketplace",
     "quotation system",
     "Store ID",
     "business directory India",
@@ -60,13 +65,13 @@ export const metadata: Metadata = {
     siteName: "AUC Store",
     title: "AUC Store - India's Unified Marketplace",
     description:
-      "Buy, sell, auction, book services, and hire professionals - all through a single verified Store ID. India's first unified commerce ecosystem.",
+      "Post your requirement and let local sellers compete on price, ratings and delivery speed. Buy, sell, auction, book services, and hire professionals - all through one verified Store ID. India's first unified commerce ecosystem.",
   },
   twitter: {
     card: "summary_large_image",
     title: "AUC Store - India's Unified Marketplace",
     description:
-      "Buy, sell, auction, book services, and hire professionals - all through a single verified Store ID.",
+      "Reverse auctions that get you the best price from local sellers. Buy, sell, auction, book services, and hire professionals - all through one verified Store ID.",
     creator: "@techtarush",
   },
   robots: {
@@ -139,6 +144,17 @@ const jsonLd = {
         },
         "query-input": "required name=search_term_string",
       },
+    },
+    {
+      "@type": "Service",
+      "@id": `${SITE_URL}/#reverse-auction`,
+      name: "Reverse Auction Marketplace",
+      serviceType: "Customer-led reverse auction",
+      description:
+        "Post your requirement and verified sellers across your city and nearby compete with their best price and fastest delivery time. Customers compare offers by price, ratings and reviews, or delivery speed and choose the winner.",
+      provider: { "@id": `${SITE_URL}/#organization` },
+      areaServed: { "@type": "Country", name: "India" },
+      audience: { "@type": "Audience", audienceType: "Customers and local sellers" },
     },
   ],
 };
