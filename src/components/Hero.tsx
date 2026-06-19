@@ -17,21 +17,21 @@ const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 const container = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.3 } },
+  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
 };
 const item = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease } },
 };
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden hero-bg noise-overlay hero-beams">
-      <div className="aurora" />
-      <div className="animated-grid" />
-      <div className="absolute top-1/4 -left-40 w-[500px] h-[500px] rounded-full bg-orange-600/15 blur-[120px] pointer-events-none animate-float scroll-parallax" />
-      <div className="absolute bottom-0 -right-40 w-[600px] h-[600px] rounded-full bg-blue-700/12 blur-[140px] pointer-events-none scroll-parallax" />
-      <div className="absolute top-0 right-1/3 w-96 h-96 rounded-full bg-red-500/10 blur-[100px] pointer-events-none" />
+      <div className="aurora hidden md:block" />
+      <div className="animated-grid hidden md:block" />
+      <div className="absolute top-1/4 -left-40 w-[500px] h-[500px] rounded-full bg-orange-600/15 blur-[120px] pointer-events-none animate-float scroll-parallax hidden md:block" />
+      <div className="absolute bottom-0 -right-40 w-[600px] h-[600px] rounded-full bg-blue-700/12 blur-[140px] pointer-events-none scroll-parallax hidden md:block" />
+      <div className="absolute top-0 right-1/3 w-96 h-96 rounded-full bg-red-500/10 blur-[100px] pointer-events-none hidden md:block" />
       <div className="absolute top-24 right-16 w-32 h-32 rounded-full border border-orange-500/20 animate-spin-slow hidden lg:block" />
       <div className="absolute bottom-32 left-20 w-20 h-20 rounded-full border border-white/10 animate-spin-slow hidden lg:block" style={{ animationDirection: "reverse" }} />
 

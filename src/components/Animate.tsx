@@ -1,5 +1,5 @@
 "use client";
-import { motion, useInView, Variants } from "framer-motion";
+import { motion, useInView, useScroll, useSpring, useTransform, Variants } from "framer-motion";
 import { useRef, ReactNode } from "react";
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -39,36 +39,52 @@ interface Props {
   once?: boolean;
 }
 
+// Per-variant starting offsets used for the scroll-linked fade.
+const variantOffsets: Record<string, { x: number; y: number; s: number }> = {
+  up: { x: 0, y: 60, s: 1 },
+  left: { x: -60, y: 0, s: 1 },
+  right: { x: 60, y: 0, s: 1 },
+  scale: { x: 0, y: 0, s: 0.9 },
+};
+
 export default function Animate({
   children,
   className,
-  delay = 0,
   variant = "up",
-  once = true,
 }: Props) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once, margin: "-80px" });
+  const ref = useRef<HTMLDivElement>(null);
 
-  const variants: Record<string, Variants> = { up: fadeUp, left: fadeLeft, right: fadeRight, scale };
+  // Track this element's progress through the viewport:
+  // 0 = its top just entered from the bottom, 1 = its bottom just left at the top.
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
 
-  const chosen = variants[variant] ?? fadeUp;
-  const visibleState = chosen.visible as Record<string, unknown>;
-  const existingTransition = (visibleState?.transition as Record<string, unknown>) ?? {};
-  const withDelay: Variants = {
-    hidden: chosen.hidden,
-    visible: {
-      ...visibleState,
-      transition: { ...existingTransition, delay },
-    },
-  };
+  // Smooth the raw scroll value for a buttery, eased motion.
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    mass: 0.35,
+  });
+
+  const o = variantOffsets[variant] ?? variantOffsets.up;
+
+  // Fade/translate IN on the way up into view, hold, then fade/translate OUT at the top.
+  const opacity = useTransform(progress, [0, 0.22, 0.8, 1], [0, 1, 1, 0]);
+  const y = useTransform(progress, [0, 0.22, 0.8, 1], [o.y, 0, 0, -o.y]);
+  const x = useTransform(progress, [0, 0.22, 0.8, 1], [o.x, 0, 0, -o.x]);
+  const scaleV = useTransform(
+    progress,
+    [0, 0.22, 0.8, 1],
+    [o.s, 1, 1, o.s]
+  );
 
   return (
     <motion.div
       ref={ref}
       className={className}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      variants={withDelay}
+      style={{ opacity, x, y, scale: scaleV, willChange: "transform, opacity" }}
     >
       {children}
     </motion.div>

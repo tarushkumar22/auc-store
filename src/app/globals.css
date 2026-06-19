@@ -338,3 +338,35 @@ body {
   .scroll-zoom,
   .scroll-blur { opacity: 1; }
 }
+
+/* ─── MOBILE PERFORMANCE: drop costly paint/animation on small screens ── */
+@media (max-width: 767px) {
+  .hero-beams::before,
+  .hero-beams::after { display: none; }
+
+  .noise-overlay::before { display: none; }
+
+  .animated-grid { animation: none; }
+
+  .aurora { animation: none; }
+
+  /* Heavy backdrop blur is expensive on mobile GPUs — lighten it */
+  .glass,
+  .glass-dark,
+  .glass-card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+/* ─── RESPECT REDUCED MOTION ──────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

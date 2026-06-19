@@ -29,11 +29,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 md:h-18">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-xl overflow-hidden bg-white flex items-center justify-center shadow-lg">
-              <Image src="/auc.png" alt="AUC Store logo" width={36} height={36} className="object-contain w-full h-full" />
+            <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg overflow-hidden bg-white flex items-center justify-center shadow-md">
+              <Image src="/auc.png" alt="AUC Store logo" width={32} height={32} className="object-contain w-full h-full" />
             </div>
             <span
-              className={`text-xl font-bold transition-colors ${
+              className={`text-lg font-bold transition-colors ${
                 scrolled ? "text-gray-900" : "text-white"
               }`}
             >
